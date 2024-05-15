@@ -1,0 +1,77 @@
+# https://docs.gradle.org/current/userguide/platforms.html#sub::toml-dependencies-format
+
+[versions]
+arrow-core = "1.2.4"
+task-tree = "3.0.0"
+
+# Kotlin
+detekt = "1.23.6"
+dokka = "1.9.20"
+kotlin = "2.0.0" # BOM-like
+ktlint = "12.1.1"
+
+# Logging
+log4j = "2.23.1" # BOM-like
+oshai-kotlin-logging =  "6.0.9"
+slf4j = "2.0.13" # BOM-like
+
+# Testing
+assertJ = "3.25.3"
+delta-coverage = "2.3.0"
+junit = "5.10.2" # BOM-like
+kotlinx-kover = "0.7.6"
+mockK = "1.13.11"
+
+[libraries]
+arrow-core = { module = "io.arrow-kt:arrow-core-jvm", version.ref = "arrow-core" }
+
+# Kotlin
+# Since Kotlin 1.8, kotlin-stdlib-jdk8 has been merged into stdlib.
+# See:
+# - https://kotlinlang.org/docs/whatsnew18.html#updated-jvm-compilation-target
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
+
+# Logging
+log4j-api = { module = "org.apache.logging.log4j:log4j-api", version.ref = "log4j" }
+log4j-core = { module = "org.apache.logging.log4j:log4j-core", version.ref = "log4j" }
+log4j-slf4j2-impl = { module = "org.apache.logging.log4j:log4j-slf4j2-impl", version.ref = "log4j" }
+oshai-kotlin-logging = { module = "io.github.oshai:kotlin-logging-jvm", version.ref = "oshai-kotlin-logging" }
+slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
+
+# Testing
+assertJ = { module = "org.assertj:assertj-core", version.ref = "assertJ" }
+junit = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
+kotest-assertions = { module = "io.kotest:kotest-assertions-core-jvm", version.ref = "kotest" }
+mockK = { module = "io.mockk:mockk", version.ref = "mockK" }
+
+[plugins]
+task-tree = { id = "com.dorongold.task-tree", version.ref = "task-tree"}
+
+# Kotlin
+kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+kotlin-dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+
+# Code Formatting
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint"}
+
+# Code Quality
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt"}
+
+# Code Coverage
+delta-coverage = { id = "io.github.surpsg.delta-coverage", version.ref = "delta-coverage" }
+kotlinx-kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kotlinx-kover" }
+
+[bundles]
+jvm-shared-logging-implementation = [
+    "log4j-api",
+    "log4j-slf4j2-impl",
+    "oshai-kotlin-logging",
+    "slf4j-api",
+]
+jvm-shared-testing = [
+    "assertJ",
+    "junit",
+    "kotest-assertions",
+    "mockK",
+]
